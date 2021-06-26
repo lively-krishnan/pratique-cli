@@ -10,7 +10,7 @@
 | -------------------------------------- | :-: |
 | vue3.x                                 | Yes |
 | vite                                   | Yes |
-| [element-plus,ant-design-Vue,Naive-ui] | yes |
+| [element-plus,ant-design-Vue,Naive-ui] | Yes |
 | [sass,less,stylus]                     | Yes |
 | ts                                     | No  |
 

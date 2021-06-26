@@ -3,7 +3,8 @@
 const fs = require('fs')
 const path = require('path')
 const argv = require('minimist')(process.argv.slice(2));
-const prompts = require('prompts')
+// const prompts = require('prompts')
+const inquirer = require('inquirer')
 const chalk = require('chalk');
 const { emptyDir, copy }  = require('./bin/utils')
 const exec = require("./utils/exec")
@@ -23,12 +24,15 @@ async function init() {
 
   try {
     const q = require('./bin/questions')
-    result = await prompts([
+    result = await inquirer.prompt([
       q.projectName(targetDir,defaultProjectName),
       q.overwrite(),
       q.packageName(),
       q.framework(template),
+      q.selectVariant(),
       q.componentLibrary(),
+      q.manuallyInstallDep(),
+      q.customDependency(),
       q.selectYourCss()
     ])
   }catch(cancelled) {
@@ -36,16 +40,18 @@ async function init() {
     return
   }
 
-
   const { 
     projectName, 
     packageName,
     overwrite, 
     framework,
+    manuallyInstallDep,
+    customDependency,
     componentLibrary,
+    selectVariant,
     selectYourCss 
   } = result
-
+  
   const root = path.join(cwd, projectName)
 
   // 判断是否覆盖 
@@ -55,6 +61,12 @@ async function init() {
   }else if(!fs.existsSync(root)) {
     fs.mkdirSync(root)
   }
+  // customDependency 这个依赖需要处理再放进依赖包
+  // 依赖包集合
+  const relyOn = [
+    componentLibrary,
+    selectYourCss,
+  ]
   
   // 框架模板名称
   template = framework || template || 'vue'
@@ -62,8 +74,8 @@ async function init() {
   // 脚手架 项目路径
   log(chalk.blue(`\nScaffolding project in ${root}...`))
   
-  // 模板路径
-  const templateDir = path.join(__dirname, `template-${template}`)
+  // 拼接创建模板路径
+  const templateDir = path.join(__dirname, `create-app/template-${template}-${selectVariant}`)
 
   // 返回一个包含 指定目录下所有文件名称 的数组对象
   let files = fs.readdirSync(templateDir)
@@ -83,38 +95,42 @@ async function init() {
   // 判断是否为 yarn 或者 npm 
   const pkgManager = /yarn/.test(process.env.npm_execpath) ? 'yarn' : 'npm'
 
-  // 操作命令
-  const operationCommand = pkgManager === 'yarn' ? 'yarn add' : 'npm i'
 
-  // 依赖包集合
-  const relyOn = [
-    componentLibrary,
-    selectYourCss
-  ]
+  // 自动配置 和自定义配置 依赖进入
+  if(manuallyInstallDep !== 'manual') {
+    // 操作命令
+    const operationCommand = pkgManager === 'yarn' ? 'yarn add' : 'npm i'
 
-  // 执行命令
-  const command = `cd ${path.relative(cwd, root)} && ${operationCommand} -D ${relyOn.join(' ')}`
+    // 执行命令
+    const command = `cd ${path.relative(cwd, root)} && ${operationCommand} -D ${relyOn.join(' ')}`
 
-  // 请等待开始安装依赖包
-  log(chalk.green(`\n\n Please wait to start installing [ ${relyOn.join(' ')} ] dependency packages \n`))
+    // 请等待开始安装依赖包
+    log(chalk.green(`\n\n Please wait to start installing [ ${relyOn.join(' ')} ] dependency packages \n`))
 
-  spinner.start('Loading...\n')
+    spinner.start('Loading...\n')
+    // 执行依赖包安装命令
+    await exec(command)
+    .then(
+      res => {
+        log(`${res.stdout}`)
+        spinner.success('Done. Now run: \n')
+        if (root !== cwd) log(chalk.green(`  cd ${path.relative(cwd, root)}`))
+        log(chalk.green(`  ${pkgManager === 'yarn' ? `yarn dev` : `npm run dev`}\n`))
+      }
+    )
+    .catch(
+      err => {
+        spinner.error('Load error \n')
+      }
+    )
+  }else {
+    // 手动配置依赖进入
 
-  // 执行依赖包安装命令
-  await exec(command)
-  .then(
-    res => {
-      log(`${res.stdout}`)
-      spinner.success('Done. Now run: \n')
-      if (root !== cwd) log(chalk.green(`  cd ${path.relative(cwd, root)}`))
-      log(chalk.green(`  ${pkgManager === 'yarn' ? `yarn dev` : `npm run dev`}\n`))
-    }
-  )
-  .catch(
-    err => {
-      spinner.error('Load error \n')
-    }
-  )
+    log(chalk.green('\n Done. Now run: \n'));
+    if (root !== cwd) log(chalk.green(`  cd ${path.relative(cwd, root)}`))
+    log(chalk.green(`  ${pkgManager === 'yarn' ? `yarn dev` : `npm run dev`}\n`))
+  }
+  
 
 
   /**
