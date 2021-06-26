@@ -1,0 +1,26 @@
+{
+  "name": "k_cli",
+  "version": "1.0.0",
+  "author": "karson",
+  "description": "现支持框架 组件库 等插件安装",
+  "main": "index.js",
+  "bin": {
+    "create-cli": "index.js"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "scripts": {
+    "test": "node index.js"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.1.1",
+    "execa": "^5.1.1",
+    "minimist": "^1.2.5",
+    "ora": "^5.4.1",
+    "progress": "^2.0.3",
+    "prompts": "^2.4.1"
+  }
+}
