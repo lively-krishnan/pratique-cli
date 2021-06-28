@@ -1,15 +1,27 @@
 #!/usr/bin/env node
 
+const semver = require('semver')
+const chalk = require('chalk');
+const requiredVersion = require('../package.json').engines.node
+const requiredName = require('../package.json').name
+const log = console.log
+
+if (!semver.satisfies(process.version, requiredVersion, { includePrerelease: true })) {
+    log(chalk.red(
+      'You are using Node ' + process.version + ', but this version of ' + requiredName +
+      ' requires Node ' + requiredVersion + '.\nPlease upgrade your Node version.'
+    ))
+    process.exit(1)
+}
+
 const fs = require('fs')
 const path = require('path')
 const argv = require('minimist')(process.argv.slice(2));
 const inquirer = require('inquirer')
-const chalk = require('chalk');
 const { emptyDir, copy }  = require('./file-method')
 const exec = require("../utils/exec")
 const spinner = require('../utils/ora')
 const cwd = process.cwd()
-const log = console.log
 
 async function init() {
   //  目标目录

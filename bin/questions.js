@@ -7,7 +7,6 @@ const { isEmpty }  = require('./file-method')
 const { FRAMEWORKS,MoreTemplates } = require('./template-config')
 
 let dir = ''
-let way = ''
 /**
  * 创建项目名
  * @param {string} targetDir 目标路径

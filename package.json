@@ -21,6 +21,7 @@
     "inquirer": "^8.1.1",
     "minimist": "^1.2.5",
     "ora": "^5.4.1",
-    "progress": "^2.0.3"
+    "progress": "^2.0.3",
+    "semver": "^7.3.5"
   }
 }
