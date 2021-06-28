@@ -60,7 +60,7 @@ async function init() {
   }else if(!fs.existsSync(root)) {
     fs.mkdirSync(root)
   }
-  // customDependency 这个依赖需要处理再放进依赖包
+
   // 依赖包集合
   const relyOn = [
     componentLibrary,
@@ -108,7 +108,7 @@ async function init() {
     log(chalk.green(`\n\n Please wait for a dependency package to be installed \n`))
 
     spinner.start('Loading...\n')
-    
+
     // 执行依赖包安装命令
     await exec(command)
     .then(

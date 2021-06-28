@@ -9,6 +9,9 @@
 # 开始使用
 
 ```javascript
+
+  npm 安装
   // 快捷创建模板框架  简写 -t 全称 --template
-  [启动命令] --template|t  <vue ['框架名称-> 目前只支持vue' ]> <project-name>
+  npm i --template|t  <'框架名称vue'> <project-name>
+
 ```
