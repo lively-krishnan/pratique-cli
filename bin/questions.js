@@ -3,7 +3,7 @@
  * cli 工具提示交互
  */
 const fs = require('fs')
-const { isEmpty }  = require('./file')
+const { isEmpty }  = require('./file-method')
 const { FRAMEWORKS,MoreTemplates } = require('./template-config')
 
 let dir = ''
