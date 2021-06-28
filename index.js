@@ -3,7 +3,6 @@
 const fs = require('fs')
 const path = require('path')
 const argv = require('minimist')(process.argv.slice(2));
-// const prompts = require('prompts')
 const inquirer = require('inquirer')
 const chalk = require('chalk');
 const { emptyDir, copy }  = require('./bin/utils')
@@ -13,9 +12,9 @@ const cwd = process.cwd()
 const log = console.log
 
 async function init() {
-  // 目标目录
+  //  目标目录
   let targetDir = argv._[0]
-  //  模板
+  //  模板  
   let template = argv.template || argv.t
   // 默认目录名称
   const defaultProjectName = !targetDir ? 'project-demo' : targetDir
@@ -66,7 +65,8 @@ async function init() {
   const relyOn = [
     componentLibrary,
     selectYourCss,
-  ]
+    ...customDependency
+  ].filter((val) => val !== '')
   
   // 框架模板名称
   template = framework || template || 'vue'
@@ -104,10 +104,11 @@ async function init() {
     // 执行命令
     const command = `cd ${path.relative(cwd, root)} && ${operationCommand} -D ${relyOn.join(' ')}`
 
-    // 请等待开始安装依赖包
-    log(chalk.green(`\n\n Please wait to start installing [ ${relyOn.join(' ')} ] dependency packages \n`))
+    // 请等待正在安装依赖包
+    log(chalk.green(`\n\n Please wait for a dependency package to be installed \n`))
 
     spinner.start('Loading...\n')
+    
     // 执行依赖包安装命令
     await exec(command)
     .then(
@@ -125,13 +126,11 @@ async function init() {
     )
   }else {
     // 手动配置依赖进入
-
     log(chalk.green('\n Done. Now run: \n'));
     if (root !== cwd) log(chalk.green(`  cd ${path.relative(cwd, root)}`))
     log(chalk.green(`  ${pkgManager === 'yarn' ? `yarn dev` : `npm run dev`}\n`))
   }
   
-
 
   /**
    * 写入文件

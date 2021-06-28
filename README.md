@@ -6,12 +6,9 @@
 
 > node <= 12.0.0
 
-| 现阶段支持                             |     |
-| -------------------------------------- | :-: |
-| vue3.x                                 | Yes |
-| vite                                   | Yes |
-| [element-plus,ant-design-Vue,Naive-ui] | Yes |
-| [sass,less,stylus]                     | Yes |
-| ts                                     | No  |
+# 开始使用
 
-目前还在开发阶段
+```javascript
+  // 快捷创建模板框架  简写 -t 全称 --template
+  [启动命令] --template|t  <vue ['框架名称-> 目前只支持vue' ]> <project-name>
+```

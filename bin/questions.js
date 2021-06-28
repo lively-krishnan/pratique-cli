@@ -172,9 +172,8 @@ function customDependency() {
     type: 'input',
     name: 'customDependency',
     message: 'Customize your dependencies',
-    default: '',
     filter:(val) =>{
-      return val.trim().split(' ')
+      return val.split(/[\n\s+,，|]/g).filter((val) => val !== '')
     },
     when: (answers) => {
       return answers.manuallyInstallDep === 'custom'

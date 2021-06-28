@@ -13,12 +13,9 @@ export default defineConfig({
       "views": path.resolve(__dirname, "src/views"),
       "layout": path.resolve(__dirname, "src/layout"),
       "utils": path.resolve(__dirname, "src/utils"),
+      "config": path.resolve(__dirname, "src/config"),
       "api": path.resolve(__dirname, "src/api")
     }
   },
-  plugins: [vue()],
-  // 在开发服务器启动时自动在浏览器中打开应用程序
-  server: {
-    open: '/docs/index.html'
-  }
+  plugins: [vue()]
 })
