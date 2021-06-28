@@ -34,9 +34,8 @@
   npm test create <project-name> ['后面参数如上图']
 
 
-
 ```
 
 #### 查看版本
 
-> -V|--version
+> -V |--version
