@@ -1,10 +1,10 @@
 {
-  "name": "k_cli",
+  "name": "pratique",
   "version": "1.0.0",
   "author": "Karson",
-  "description": "基于vite+vue3.x 生成并且可选择组件库以及第三方依赖 进行极速安装，上手开发",
+  "description": "pratique 基于vite+vue3.x 生成并且可选择组件库以及第三方依赖 进行极速安装，上手开发",
   "bin": {
-    "k_cli": "bin/index.js"
+    "pratique": "bin/index.js"
   },
   "engines": {
     "node": ">=12.0.0"
