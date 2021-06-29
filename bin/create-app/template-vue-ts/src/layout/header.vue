@@ -1,10 +1,10 @@
 <template>
   <div>
-    <img src="../assets/logo.png" alt="">
+      <img src="../assets/logo.png" alt="">
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 
 </script>
 

@@ -23,16 +23,16 @@ program.version(`${package.name} ${package.version}`).usage('<command> [options]
 
 
 program
-.command('create <projectName> [otherDirs...]')
+.command('create <projectName>')
 .description('To create a project, you can specify the frame and directory')
 .option('-t, --template <framework>')
-.action((name,dir,options) => {
-  if(require('minimist')(process.argv.slice(3))._.length > 2) {
+.action((name,options) => {
+  if(require('minimist')(process.argv.slice(3))._.length > 1) {
     log(chalk.yellow('\n Info: You provided more than one argument. The first one will be used as the app\'s name, the rest are ignored.'))
     log(chalk.yellow(' 您提供了多个参数。第一个将被用作应用程序的名称，其余的将被忽略。'))
   }
 
-  require('../lib/create')(name,dir, options)
+  require('../lib/create')(name,options)
 })
 
 program.on('command:*', function () {

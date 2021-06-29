@@ -20,10 +20,7 @@
   // 此部分还未实现
 
   // 创建模板
-  ['工具名'] create <project-name> || ['工具名'] create <project-name> [otherDirs...] || -t <'框架名称'>
-
-  // 如果是clone 到本地，启动方式则 把工具名替换成
-  npm test create <project-name> [otherDirs...] -t <'框架名称'> ||  npm test create <project-name>
+  npm test create <project-name>
 
   // 查看版本
   npm test -V
