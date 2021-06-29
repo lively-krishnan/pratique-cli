@@ -1,5 +1,3 @@
-<!-- 暂无 -->
-
 # cli
 
 释放双手，愉快,高效的工作
@@ -22,20 +20,11 @@
   // 此部分还未实现
 
   // 创建模板
-  ['工具名'] create <project-name>
-
-  // 创建模板 存放路径
-  ['工具名'] create <project-name>  -d <'存放路径'>
-
-  // 创建模板 选择框架
-  ['工具名'] create <project-name>  -t <'框架名称'>
+  ['工具名'] create <project-name> || ['工具名'] create <project-name> [otherDirs...] || -t <'框架名称'>
 
   // 如果是clone 到本地，启动方式则 把工具名替换成
-  npm test create <project-name> ['后面参数如上图']
+  npm test create <project-name> [otherDirs...] -t <'框架名称'> ||  npm test create <project-name>
 
-
+  // 查看版本
+  npm test -V
 ```
-
-#### 查看版本
-
-> -V |--version
