@@ -2,7 +2,7 @@
   "name": "pratique",
   "version": "1.0.0",
   "author": "Karson",
-  "description": "pratique 基于vite+vue3.x 生成并且可选择组件库以及第三方依赖 进行极速安装，上手开发",
+  "description": "pratique 是一款非常实用的cli工具，包含内容丰富",
   "bin": {
     "pratique": "bin/index.js"
   },
