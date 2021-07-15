@@ -12,17 +12,13 @@
 # 开始使用
 
 ```javascript
-
+  // 正在搞
   // npm 安装
   npm i
   // npm 全局安装
-  // 正在搞
-
+  npm i -g pratique
   // 创建模板
   pratique create <project-name>
-
   // 查看版本
   pratique -V
 ```
-
--

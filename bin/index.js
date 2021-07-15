@@ -35,6 +35,13 @@ program
   require('../lib/create')(name, options)
 })
 
+program
+.command('admin')
+.description('Create an Admin framework')
+.action((name,options) => {
+  require('../lib/create-admin')()
+})
+
 program.on('command:*', function () {
   log('\nInvalid command: %s \nSee --help for a list of available commands. \n', chalk.red(`${program.args.join(' ')}`));
   process.exit(1);
